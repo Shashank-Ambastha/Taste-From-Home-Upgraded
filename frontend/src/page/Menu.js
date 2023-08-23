@@ -45,12 +45,12 @@ const Menu = () => {
             ~ by {productDisplay.seller}
           </p>
           <div className="flex gap-3">
-            <button className="bg-yellow-500 py-1 min-w-[100px] my-2 mt-2 rounded hover:bg-yellow-600">
+            <button className="bg-amber-500 py-1 min-w-[100px] my-2 mt-2 rounded hover:bg-amber-600">
               Buy Now
             </button>
             <button
               onClick={handleAddCartProduct}
-              className="bg-yellow-500 py-1 min-w-[100px] my-2 mt-2 rounded hover:bg-yellow-600"
+              className="bg-amber-500 py-1 min-w-[100px] my-2 mt-2 rounded hover:bg-amber-600"
             >
               Add to cart
             </button>

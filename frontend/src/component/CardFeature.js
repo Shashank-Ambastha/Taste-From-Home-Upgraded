@@ -29,7 +29,7 @@ const CardFeature = ({
     // alert("hii!!");
   };
   return (
-    <div className="w-full min-w-[200px] max-w-[200px] bg-white hover:shadow-2xl drop-shadow-[2px_2px_2px_rgba(0,0,0,1)] px-4 py-5 hover:cursor-pointer flex flex-col overflow-hidden">
+    <div className="w-full min-w-[200px] max-w-[200px] rounded bg-white hover:shadow-2xl drop-shadow-[2px_2px_2px_rgba(0,0,0,1)] px-4 py-5 hover:cursor-pointer flex flex-col overflow-hidden">
       {image ? (
         <>
           <Link
@@ -56,7 +56,7 @@ const CardFeature = ({
             <p className="text-green-400 font-small italic"> ~ by {seller}</p>
           </Link>
           <button
-            className="bg-yellow-500 py-1 my-2 mt-2 rounded hover:bg-yellow-600 w-full"
+            className=" bg-amber-500 py-1 my-2 mt-2 rounded hover:bg-amber-600 w-full"
             onClick={handleAddCartProduct}
           >
             Add to Cart

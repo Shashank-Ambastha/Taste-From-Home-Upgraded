@@ -36,7 +36,7 @@ const Home = () => {
     <div className="p-2 md:p-4 overflow-hidden">
       <div className="md:flex gap-4 py-2">
         <div className="w-2/5">
-          <h2 className="text-4xl md:text-6xl font-bold text-slate-800">
+          <h2 className="text-4xl md:text-6xl font-bold text-slate-300">
             Welcome to
             <span className=" text-orange-500 md:text-7xl drop-shadow-[2px_2px_2px_rgba(0,0,0,1)]">
               Taste From Home
@@ -44,7 +44,7 @@ const Home = () => {
             {/* <br /> Order Super-tasty and Healthy Home-made delicacies and have
             it delivered right at your doorstep. */}
           </h2>
-          <p className="py-3 text-l px-2">
+          <p className="py-3 text-l px-2 text-slate-200 drop-shadow-[1px_1px_1px_rgba(0,0,0,1)]">
             Order super-tasty and healthy homemade delicacies and have it
             delivered right at your doorstep.
             <br /> Enjoy mouth-watering snacks and sweets from the comfort of
@@ -85,7 +85,7 @@ const Home = () => {
 
       <div className="">
         <div className="flex w-full items-center">
-          <h2 className="font-bold text-2xl text-orange-800 mb-4">
+          <h2 className="font-bold text-2xl text-amber-200 mb-4">
             Featured - Sweets: Laddu and Barfi
           </h2>
           <div className="ml-auto flex gap-4">

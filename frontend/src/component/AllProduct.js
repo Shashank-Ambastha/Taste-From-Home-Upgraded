@@ -29,7 +29,7 @@ const AllProduct = ({ heading }) => {
 
   return (
     <div className="my-5 w-screen overflow-hidden">
-      <h2 className="font-bold text-2xl text-orange-800 mb-4">{heading}</h2>
+      <h2 className="font-bold text-2xl text-amber-200 mb-4">{heading}</h2>
       <div className="flex gap-4 justify-center overflow-scroll scrollbar-none">
         {catagoryList[0] ? (
           catagoryList.map((el) => {

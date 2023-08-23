@@ -26,7 +26,7 @@ const CartProduct = ({
         <img
           src={image}
           alt="img"
-          className="w-fit h-fit max-h-40 max-w-40 object-cover p-3"
+          className="w-fit h-fit max-h-40 max-w-40 object-cover p-3 rounded-2xl"
         />
       </div>
       <div className="flex flex-col gap-1 w-full">

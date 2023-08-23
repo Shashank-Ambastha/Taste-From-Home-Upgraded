@@ -24,7 +24,7 @@ const Cart = () => {
         src={BG}
         className="w-screen h-screen absolute overflow-hidden m-0"
       /> */}
-      <h2 className="text-lg md:text-2xl text-slate-600 font-bold">
+      <h2 className="text-lg md:text-2xl text-amber-200 font-bold">
         Your Cart Items
       </h2>
       {productCartItem[0] ? (
@@ -49,13 +49,13 @@ const Cart = () => {
               })}
             </div>
           </div>
-          <div className="w-full ma-x-md ml-auto">
+          <div className="w-full ma-x-md ml-auto bg-gray-900 bg-opacity-30 max-h-40">
             <h2 className="bg-blue-500 text-white p-2 text-lg">Summary:</h2>
-            <div className="flex w-full py-2 text-lg border-b">
+            <div className="flex w-full py-2 text-lg border-b border-black text-semibold text-slate-100 drop-shadow-[1px_1px_1px_rgba(0,0,0,1)]">
               <p className="">Total Items:</p>
               <p className="ml-auto w-32 font-semibold">{totalItems}</p>
             </div>
-            <div className="flex w-full py-2 text-lg border-b">
+            <div className="flex w-full py-2 text-lg border-b border-black text-semibold text-slate-100 drop-shadow-[1px_1px_1px_rgba(0,0,0,1)]">
               <p className="">Total Price:</p>
               <p className="ml-auto w-32 font-semibold">
                 <span className="text-red-500">₹ </span>
@@ -74,10 +74,12 @@ const Cart = () => {
             alt="empty cart"
             className="w-full max-w-md rounded-full border border-gray-800"
           />
-          <p className="text-slate-500 text-3xl font-bold"> Cart Empty🙄</p>
+          <p className="text-amber-200 drop-shadow-[1px_1px_1px_rgba(0, 0, 0, 1)] text-3xl font-bold">
+            Cart Empty🙄
+          </p>
           <Link
             to={`/`}
-            className="text-white text-xl font-bold border-2 border-cyan-400 bg-stone-700 p-2 hover:text-cyan-300 hover:underline"
+            className="text-amber-200 drop-shadow-[1px_1px_1px_rgba(0, 0, 0, 1)] text-2xl hover:bg-black hover:bg-opacity-40 hover:text-cyan-500 hover:underline"
           >
             Shop Now and Fill Your cart wih some Goodies
           </Link>
