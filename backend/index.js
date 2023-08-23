@@ -13,7 +13,7 @@ console.log(process.env.MONGODB_URL);
 mongoose.set("strictQuery", false);
 mongoose
   .connect(process.env.MONGODB_URL)
-  .then(() => console.log("Connect to Taste From Home Database"))
+  .then(() => console.log("Connected to Taste From Home Database"))
   .catch((err) => console.log(err));
 
 //schema
@@ -70,25 +70,29 @@ app.post("/signup", async (req, res) => {
 //api login
 app.post("/login", (req, res) => {
   console.log(req.body);
-  const { email } = req.body;
+  const { email, password } = req.body;
   userModel
     .findOne({ email: email })
     .then(function (result) {
       if (result) {
-        console.log(result);
-        const dataSend = {
-          _id: result._id,
-          firstName: result.firstName,
-          lastName: result.lastName,
-          email: result.email,
-          image: result.image,
-        };
-        console.log(dataSend);
-        res.send({
-          message: "Login Successful",
-          alert: true,
-          data: dataSend,
-        });
+        if (result.password === password) {
+          console.log(result);
+          const dataSend = {
+            _id: result._id,
+            firstName: result.firstName,
+            lastName: result.lastName,
+            email: result.email,
+            image: result.image,
+          };
+          console.log(dataSend);
+          res.send({
+            message: "Login Successful",
+            alert: true,
+            data: dataSend,
+          });
+        } else {
+          res.send({ message: "Password Doesn't match!!", alert: false });
+        }
       } else {
         res.send({
           message: "Email ID not found. Please Register first!",

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import logo from "../imgs/logo.jpg";
 import { FaUserAlt } from "react-icons/fa";
-import { BsCartFill } from "react-icons/bs";
+// import { BsCartFill } from "react-icons/bs";
+import { BsCart2 } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutRedux } from "../redux/userSlice";
@@ -52,15 +53,15 @@ const Header = () => {
             <Link to={"contact"}>Contact</Link>
           </nav>
 
-          <div className="text-2xl text-slate-600 relative">
+          <div className="text-2xl text-white relative">
             <Link to={"cart"}>
-              <BsCartFill />
+              <BsCart2 />
               <div className="absolute -top-1 -right-1 text-white bg-red-500 h-4 w-4 rounded-full m-0 p-0 text-base text-center text-xs">
                 {cartItemNumber.length}
               </div>
             </Link>
           </div>
-          <div className="text-l text-slate-600" onClick={handleShowMenu}>
+          <div className="text-l text-white" onClick={handleShowMenu}>
             <div className="cursor-pointer w-10 h-10 rounded-full overflow-hidden border-2 border-solid border-slate-600 drop-shadow-md">
               {userData.image ? (
                 <img
@@ -74,19 +75,19 @@ const Header = () => {
             </div>
 
             {showMenu && (
-              <div className="absolute right-2 bg-white py-2 shadow drop-shadow-md flex flex-col min-w-[120px] text-center">
+              <div className="absolute right-2 bg-slate-500 py-2 shadow drop-shadow-md flex flex-col min-w-[120px] text-center">
                 {(userData.email === process.env.REACT_APP_ADMIN1_EMAIL ||
                   userData.email === process.env.REACT_APP_ADMIN2_EMAIL) && (
                   <Link
                     to={"newproduct"}
-                    className="whitespace-nowrap cursor-pointer px-2"
+                    className="whitespace-nowrap cursor-pointer px-2  hover:bg-white hover:text-slate-600"
                   >
                     New Product
                   </Link>
                 )}
                 {userData.image ? (
                   <p
-                    className="cursor-pointer text-white bg-red-500 px-2"
+                    className="cursor-pointer text-white hover:bg-red-500 px-2"
                     onClick={handleLogOut}
                   >
                     Log Out ({userData.firstName})
@@ -94,9 +95,9 @@ const Header = () => {
                 ) : (
                   <Link
                     to={"login"}
-                    className="whitespace-nowrap cursor-pointer px-2"
+                    className="whitespace-nowrap cursor-pointer px-2 hover:bg-white hover:text-slate-600"
                   >
-                    Login
+                    Log In
                   </Link>
                 )}
 
