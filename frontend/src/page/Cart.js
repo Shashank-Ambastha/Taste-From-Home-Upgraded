@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import CartProduct from "../component/cartProduct";
 // import { current } from "@reduxjs/toolkit";
-import emptyCart from "../assest/empty.gif";
+import emptyCart from "../imgs/empty.gif";
 import { Link } from "react-router-dom";
 
 const Cart = () => {

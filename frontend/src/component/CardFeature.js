@@ -39,21 +39,25 @@ const CardFeature = ({
             <div className="h-28 flex flex-col justify-center items-center">
               <img
                 src={image}
-                className="h-full rounded-md "
+                className="h-full rounded-md border-2 border-blue-950 hover:scale-105 transition-all"
                 alt="product img"
               />
             </div>
-            <h3 className="font-semibold  text-slate-600 capitalise font-lg w-40 mt-4 whitespace-nowrap overflow-hidden">
+            <p className="text-slate-400 text-sm mt-4">{catagory}</p>
+            <h3 className="font-semibold text-slate-900 capitalise text-md w-40 whitespace-nowrap overflow-hidden hover:text-ellipsis">
               {name}
             </h3>
-            <p className="text-slate-400 font-medium">{catagory}</p>
-            <p className="font-bold">
+            {/* <p className="text-slate-400 font-medium">{catagory}</p> */}
+            <p className="font-bold text-sm text-center text-stone-800">
               <span className="text-red-500">₹</span>
               <span>
                 {price}/- {quantity}
               </span>
             </p>
-            <p className="text-green-400 font-small italic"> ~ by {seller}</p>
+            <p className="text-emerald-700 font-small italic text-right">
+              {" "}
+              ~ by {seller}
+            </p>
           </Link>
           <button
             className=" bg-amber-500 py-1 my-2 mt-2 rounded hover:bg-amber-600 w-full"

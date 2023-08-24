@@ -5,6 +5,7 @@ import { Toaster } from "react-hot-toast";
 import { useEffect } from "react";
 import { setDataProduct } from "./redux/productSlice";
 import { useDispatch } from "react-redux";
+// import BGimg from ".//imgs/304658.jpg";
 
 function App() {
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ function App() {
       <Toaster />
       <div>
         <Header />
+        {/* Original:{" "} */}
         <main className="pt-16 bg-[url('https://wallpaperaccess.com/full/304658.jpg')] min-h-[calc(100vh)]">
           {/*
             1) https://wallpaperaccess.com/full/304735.jpg

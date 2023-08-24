@@ -33,10 +33,11 @@ const Header = () => {
   return (
     // px: padding from left and right (x-axis)
     // mobile version it is 2, desktop it is 4 declared in header class
-
     <header className="fixed shadow-md w-full h-16 px-2 md:px-4 z-50 bg-gradient-to-l from-gray-700 via-gray-900 to-black">
+      {/* // <header className="fixed shadow-md w-full h-16 px-2 md:px-4 z-50 bg-gradient-to-r from-yellow-200 to-yellow-500"> */}
+      {/* // <header className="fixed shadow-md w-full h-16 px-2 md:px-4 z-50 bg-gradient-to-l from-red-950 via-amber-600 to-amber-100 drop-shadow-[2px_2px_2px_rgba(10, 100, 150, 1)]"> */}
       {/* desktop version */}
-
+      {/* // <header className="bg-gradient-to-l from-blue-700 via-blue-800 to-gray-900"> */}
       {/* centers the icon perfectly in the header bar vertically and justify-between spaces them to the extremes*/}
       <div className="flex items-center h-full justify-between">
         <Link to={""}>
