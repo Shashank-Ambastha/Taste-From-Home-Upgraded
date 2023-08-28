@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
+``;
 const dotenv = require("dotenv").config();
 
 const app = express();
@@ -34,7 +35,7 @@ app.get("/", (req, res) => {
   res.send("Server is running");
 });
 
-//spi sign up
+//api sign up
 app.post("/signup", async (req, res) => {
   console.log(req.body);
   const { email } = req.body;

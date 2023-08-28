@@ -6,6 +6,8 @@ import { useSelector } from "react-redux";
 const AllProduct = ({ heading }) => {
   const productData = useSelector((state) => state.product.productList);
   const catagoryList = [...new Set(productData.map((el) => el.catagory))];
+  // const quantityList = [...new Set(productData.map((el) => el.quantity))];
+
   // console.log(catagoryList);
 
   //filter data display
@@ -17,7 +19,7 @@ const AllProduct = ({ heading }) => {
     setDataFilter(productData);
   }, [productData]);
 
-  const handleFilterProduct = (catagory) => {
+  const handleFilterProduct = (catagory, quantity) => {
     setFilterBy(catagory);
     const filter = productData.filter(
       (el) => el.catagory.toLowerCase() === catagory.toLowerCase()

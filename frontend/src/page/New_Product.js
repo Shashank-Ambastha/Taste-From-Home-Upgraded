@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BsCloudUpload } from "react-icons/bs";
 import { toast } from "react-hot-toast";
-import { ImageToBase64 } from "../utility/imagetoBase64";
+// import { ImageToBase64 } from "../utility/imagetoBase64";
 
 const NewProduct = () => {
   const [data, setData] = useState({
@@ -28,14 +28,25 @@ const NewProduct = () => {
   const uploadImage = async (e) => {
     // display the product image that is uploaded in the form
     // pending state of asynchronous operation
-    const data = await ImageToBase64(e.target.files[0]); // converts the image into base 64
-    setData((preve) => {
-      return {
-        ...preve,
-        image: data,
-      };
-    });
-    // console.log(data);
+    // const data = await ImageToBase64(e.target.files[0]); // converts the image into base 64
+    const data = new FormData();
+    data.append("file", e.target.files[0]);
+    data.append("upload_preset", "Taste-From-Home-Upgraded-Products");
+    data.append("cloud_name", "shashank-amb");
+    await fetch("https://api.cloudinary.com/v1_1/shashank-amb/image/upload", {
+      method: "Post",
+      body: data,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Cloudinary: ", data);
+        setData((prev) => {
+          return {
+            ...prev,
+            image: data.url,
+          };
+        });
+      });
   };
 
   const handleSubmit = async (e) => {
@@ -143,6 +154,7 @@ const NewProduct = () => {
 
         <label htmlFor="image" className="my-1">
           Image
+          {console.log("QWERTYU=>", data.image)}
           <div className="h-40 w-full bg-green-100 rounded flex items-center justify-center cursor-pointer">
             {data.image ? (
               <img src={data.image} className="h-full" alt="Data img" />

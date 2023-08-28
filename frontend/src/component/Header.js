@@ -74,11 +74,10 @@ const Header = () => {
                 <FaUserAlt className="h-full w-full p-2" />
               )}
             </div>
-
+            {/* || userData.email === process.env.REACT_APP_ADMIN2_EMAIL */}
             {showMenu && (
               <div className="absolute right-2 bg-slate-500 py-2 shadow drop-shadow-md flex flex-col min-w-[120px] text-center">
-                {(userData.email === process.env.REACT_APP_ADMIN1_EMAIL ||
-                  userData.email === process.env.REACT_APP_ADMIN2_EMAIL) && (
+                {userData.email === process.env.REACT_APP_ADMIN1_EMAIL && (
                   <Link
                     to={"newproduct"}
                     className="whitespace-nowrap cursor-pointer px-2  hover:bg-white hover:text-slate-600"

@@ -14,7 +14,7 @@ import Menu from "./page/Menu";
 import About from "./page/About";
 import Contact from "./page/Contact";
 import Login from "./page/Login";
-import NewProduct from "./page/NewProduct";
+import NewProduct from "./page/New_Product";
 import SignUp from "./page/SignUp";
 import { store } from "./redux/index";
 import { Provider } from "react-redux";
