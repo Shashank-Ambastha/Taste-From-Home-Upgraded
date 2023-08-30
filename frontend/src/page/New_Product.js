@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { BsCloudUpload } from "react-icons/bs";
 import { toast } from "react-hot-toast";
+import { useSelector } from "react-redux";
 // import { ImageToBase64 } from "../utility/imagetoBase64";
 
 const NewProduct = () => {
@@ -8,11 +9,15 @@ const NewProduct = () => {
     name: "",
     catagory: "",
     image: "",
-    price: "",
+    price_full: "",
+    price_half: "",
+    price_quarter: "",
     description: "",
-    quantity: "",
     seller: "",
   });
+
+  const userData = useSelector((state) => state.user);
+  // console.log("QWERTY=>", userData);
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -34,12 +39,12 @@ const NewProduct = () => {
     data.append("upload_preset", "Taste-From-Home-Upgraded-Products");
     data.append("cloud_name", "shashank-amb");
     await fetch("https://api.cloudinary.com/v1_1/shashank-amb/image/upload", {
-      method: "Post",
+      method: "POST",
       body: data,
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("Cloudinary: ", data);
+        console.log("Cloudinary: ", data.url);
         setData((prev) => {
           return {
             ...prev,
@@ -53,9 +58,23 @@ const NewProduct = () => {
     e.preventDefault();
     console.log(data);
 
-    const { name, image, catagory, price, seller, quantity } = data;
+    const {
+      name,
+      image,
+      catagory,
+      price_full,
+      price_half,
+      price_quarter,
+      seller,
+    } = data;
 
-    if (name && image && catagory && price && seller && quantity) {
+    if (
+      name &&
+      image &&
+      catagory &&
+      (price_full || price_half || price_quarter) &&
+      seller
+    ) {
       const fetchData = await fetch(
         `${process.env.REACT_APP_SERVER_DOMAIN}/uploadProduct`,
         {
@@ -76,9 +95,11 @@ const NewProduct = () => {
           name: "",
           catagory: "",
           seller: "",
-          quantity: "",
+          // quantity: "",
           image: "",
-          price: "",
+          price_full: "",
+          price_half: "",
+          price_quarter: "",
           description: "",
         };
       });
@@ -87,119 +108,132 @@ const NewProduct = () => {
     }
   };
   return (
-    <div className="p-4">
-      <form
-        className="m-auto w-full max-w-md shadow flex flex-col p-3 bg-white"
-        onSubmit={handleSubmit}
-      >
-        <label htmlFor="name">Name</label>
-        <input
-          type={"text"}
-          name="name"
-          className="bg-green-100 p-1 my-1"
-          onChange={handleOnChange}
-          value={data.name}
-        />
-
-        <label htmlFor="quantity" className="my-1">
-          Quantity
-        </label>
-        <select
-          className="bg-green-100 p-1 my-1"
-          id="quantity"
-          name="quantity"
-          onChange={handleOnChange}
-          value={data.quantity}
-        >
-          <option value={"other"}>Select Quantity</option>
-          <option value={"0.5 Kg"}>0.5 Kg</option>
-          <option value={"1 Kg"}>1 Kg</option>
-        </select>
-
-        <label htmlFor="seller" className="my-1">
-          Seller
-        </label>
-        <select
-          className="bg-green-100 p-1 my-1"
-          id="seller"
-          name="seller"
-          onChange={handleOnChange}
-          value={data.seller}
-        >
-          <option value={"other"}>Select Seller</option>
-          {/* <option value={"Vandana"}>Vandana</option> */}
-          {/* <option value={"Karishma"}>Karishma</option> */}
-          <option value={"Vini"}>Vini</option>
-          <option value={"Sumitra"}>Sumitra</option>
-          <option value={"Radha"}>Radha</option>
-          <option value={"Baker's Delight"}>Baker's Delight</option>
-        </select>
-
-        <label htmlFor="catagory" className="my-1">
-          Catagory
-        </label>
-        <select
-          className="bg-green-100 p-1 my-1"
-          id="catagory"
-          name="catagory"
-          onChange={handleOnChange}
-          value={data.catagory}
-        >
-          <option value={"other"}>Select Catagory</option>
-          <option value={"Sweets - Laddu/Barfi"}>Sweets - Laddu/Barfi</option>
-          <option value={"Sweets - Traditional"}>Sweets - Traditional</option>
-          <option value={"Bakery"}>Bakery Product</option>
-          <option value={"Namkeen - Farsaan"}>Namkeen - Farsaan</option>
-        </select>
-
-        <label htmlFor="image" className="my-1">
-          Image
-          {console.log("QWERTYU=>", data.image)}
-          <div className="h-40 w-full bg-green-100 rounded flex items-center justify-center cursor-pointer">
-            {data.image ? (
-              <img src={data.image} className="h-full" alt="Data img" />
-            ) : (
-              <span className="text-5xl">
-                <BsCloudUpload />
-              </span>
-            )}
+    <>
+      {userData.email === process.env.REACT_APP_ADMIN_EMAIL ? (
+        <div className="p-4">
+          <form
+            className="m-auto w-full max-w-md shadow flex flex-col p-3 bg-white"
+            onSubmit={handleSubmit}
+          >
+            <label htmlFor="name">Name</label>
             <input
-              type={"file"}
-              accept="image/*"
-              id="image"
-              onChange={uploadImage}
-              className="hidden"
+              type={"text"}
+              name="name"
+              className="bg-green-100 p-1 my-1"
+              onChange={handleOnChange}
+              value={data.name}
             />
-          </div>
-        </label>
 
-        <label htmlFor="price" className="my-1">
-          Price
-        </label>
-        <input
-          type={"text"}
-          className="bg-green-100 p-1 my-1"
-          name="price"
-          onChange={handleOnChange}
-          value={data.price}
-        />
+            <label htmlFor="seller" className="my-1">
+              Seller
+            </label>
+            <select
+              className="bg-green-100 p-1 my-1"
+              id="seller"
+              name="seller"
+              onChange={handleOnChange}
+              value={data.seller}
+            >
+              <option value={"other"}>Select Seller</option>
+              {/* <option value={"Vandana"}>Vandana</option> */}
+              {/* <option value={"Karishma"}>Karishma</option> */}
+              <option value={"Vini"}>Vini</option>
+              <option value={"Sumitra"}>Sumitra</option>
+              <option value={"Radha"}>Radha</option>
+              <option value={"Baker's Delight"}>Baker's Delight</option>
+            </select>
 
-        <label htmlFor="description" className="my-1">
-          Description
-        </label>
-        <textarea
-          rows={2}
-          className="bg-green-100 p-1 my-1 resize-none"
-          name="description"
-          onChange={handleOnChange}
-          value={data.description}
-        ></textarea>
+            <label htmlFor="catagory" className="my-1">
+              Catagory
+            </label>
+            <select
+              className="bg-green-100 p-1 my-1"
+              id="catagory"
+              name="catagory"
+              onChange={handleOnChange}
+              value={data.catagory}
+            >
+              <option value={"other"}>Select Catagory</option>
+              <option value={"Laddu - Barfi"}>Laddu - Barfi</option>
+              <option value={"Traditional Sweets"}>Traditional Sweets</option>
+              <option value={"Bakery"}>Bakery Product</option>
+              <option value={"Namkeen - Farsaan"}>Namkeen - Farsaan</option>
+            </select>
 
-        <button className="bg-green-500 hover:bg-green-600 text-white text-lg my-2 font-medium drop-shadow">
-          Save Product
-        </button>
-      </form>
-    </div>
+            <label htmlFor="image" className="my-1">
+              Image
+              {/* {console.log("QWERTYU=>", data.image)} */}
+              <div className="h-40 w-full bg-green-100 rounded flex items-center justify-center cursor-pointer">
+                {data.image ? (
+                  <img src={data.image} className="h-full" alt="Data img" />
+                ) : (
+                  <span className="text-5xl">
+                    <BsCloudUpload />
+                  </span>
+                )}
+                <input
+                  type={"file"}
+                  accept="image/*"
+                  id="image"
+                  onChange={uploadImage}
+                  className="hidden"
+                />
+              </div>
+            </label>
+
+            <label htmlFor="price_full" className="my-1">
+              Price 1Kg
+            </label>
+            <input
+              type={"text"}
+              className="bg-green-100 p-1 my-1"
+              name="price_full"
+              onChange={handleOnChange}
+              value={data.price_full}
+            />
+            <label htmlFor="price_half" className="my-1">
+              Price 0.5Kg
+            </label>
+            <input
+              type={"text"}
+              className="bg-green-100 p-1 my-1"
+              name="price_half"
+              onChange={handleOnChange}
+              value={data.price_half}
+            />
+            <label htmlFor="price_quarter" className="my-1">
+              Price 250g
+            </label>
+            <input
+              type={"text"}
+              className="bg-green-100 p-1 my-1"
+              name="price_quarter"
+              onChange={handleOnChange}
+              value={data.price_quarter}
+            />
+
+            <label htmlFor="description" className="my-1">
+              Description
+            </label>
+            <textarea
+              rows={2}
+              className="bg-green-100 p-1 my-1 resize-none"
+              name="description"
+              onChange={handleOnChange}
+              value={data.description}
+            ></textarea>
+
+            <button className="bg-green-500 hover:bg-green-600 text-white text-lg my-2 font-medium drop-shadow">
+              Save Product
+            </button>
+          </form>
+        </div>
+      ) : (
+        <h1 className=" font-bold text-white text-4xl text-center mt-5 drop-shadow-[1px_1px_1px_rgba(0,0,0,1)]">
+          Page Not Found !!
+        </h1>
+      )}
+    </>
   );
 };
 

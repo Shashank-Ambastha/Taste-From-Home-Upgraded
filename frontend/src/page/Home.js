@@ -11,12 +11,12 @@ import AllProduct from "../component/AllProduct";
 const Home = () => {
   const productData = useSelector((state) => state.product.productList);
   // console.log(productData);
-  const homeProductCartList = productData.slice(1, 5);
-  const homeProductCartListSweetLadduBarfi = productData.filter(
-    (el) => el.catagory === "Sweets - Laddu/Barfi",
+  const homeProductCartList = productData.slice(0, 4);
+  const homeProductCartListLadduBarfi = productData.filter(
+    (el) => el.catagory === "Laddu - Barfi",
     []
   );
-  // console.log(homeProductCartListSweetLadduBarfi);
+  console.log(homeProductCartListLadduBarfi);
 
   const loadingArray = new Array(4).fill(null);
   const loadingArrayFeature = new Array(10).fill(null);
@@ -52,7 +52,7 @@ const Home = () => {
           </p>
           <br />
           <Link
-            to={"menu/64cb4e2197d27053c1cc5d15"}
+            to={"menu/64ee1bbddbe43eb705ba6fe5"}
             className="font-bold bg-orange-500 text-black px-4 py-1 rounded-md text-xl h-10"
           >
             Order Now
@@ -68,9 +68,11 @@ const Home = () => {
                     id={el._id}
                     image={el.image}
                     name={el.name}
-                    price={el.price}
+                    price_full={el.price_full}
+                    price_half={el.price_half}
+                    price_quarter={el.price_quarter}
                     catagory={el.catagory}
-                    quantity={el.quantity}
+                    // quantity={el.quantity}
                     seller={el.seller}
                   />
                 );
@@ -86,7 +88,7 @@ const Home = () => {
       <div className="">
         <div className="flex w-full items-center">
           <h2 className="font-bold text-2xl text-amber-200 mb-4">
-            Featured - Sweets: Laddu and Barfi
+            Featured Sweets: Laddu - Barfi
           </h2>
           <div className="ml-auto flex gap-4">
             <button
@@ -107,18 +109,20 @@ const Home = () => {
           className="flex gap-2 md:gap-5 overflow-scroll scrollbar-none scroll-smooth transition-all"
           ref={slideProductRef}
         >
-          {homeProductCartListSweetLadduBarfi[0]
-            ? homeProductCartListSweetLadduBarfi.map((el) => {
+          {homeProductCartListLadduBarfi[0]
+            ? homeProductCartListLadduBarfi.map((el) => {
                 return (
                   <CardFeature
                     key={el._id + "bakery"}
                     id={el._id}
                     name={el.name}
                     catagory={el.catagory}
-                    price={el.price}
+                    price_full={el.price_full}
+                    price_half={el.price_half}
+                    price_quarter={el.price_quarter}
                     image={el.image}
                     seller={el.seller}
-                    quantity={el.quantity}
+                    // quantity={el.quantity}
                   />
                 );
               })

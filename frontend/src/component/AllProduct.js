@@ -19,7 +19,7 @@ const AllProduct = ({ heading }) => {
     setDataFilter(productData);
   }, [productData]);
 
-  const handleFilterProduct = (catagory, quantity) => {
+  const handleFilterProduct = (catagory) => {
     setFilterBy(catagory);
     const filter = productData.filter(
       (el) => el.catagory.toLowerCase() === catagory.toLowerCase()
@@ -61,8 +61,10 @@ const AllProduct = ({ heading }) => {
                   name={el.name}
                   catagory={el.catagory}
                   seller={el.seller}
-                  price={el.price}
-                  quantity={el.quantity}
+                  price_full={el.price_full}
+                  price_half={el.price_half}
+                  price_quarter={el.price_quarter}
+                  // quantity={el.quantity}
                 />
               );
             })

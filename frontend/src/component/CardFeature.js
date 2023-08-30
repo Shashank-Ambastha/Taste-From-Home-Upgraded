@@ -2,12 +2,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { addCartItem } from "../redux/productSlice";
 import { useDispatch } from "react-redux";
+
 const CardFeature = ({
   image,
   name,
-  price,
+  price_full,
+  price_half,
+  price_quarter,
   catagory,
-  quantity,
+  // quantity,
   seller,
   loading,
   id,
@@ -19,9 +22,11 @@ const CardFeature = ({
       addCartItem({
         _id: id,
         name: name,
-        price: price,
+        price_full: price_full,
+        price_half: price_half,
+        price_quarter: price_quarter,
         seller: seller,
-        quantity: quantity,
+        // quantity: quantity,
         catagory: catagory,
         image: image,
       })
@@ -36,6 +41,7 @@ const CardFeature = ({
             to={`/menu/${id}`}
             onClick={() => window.scrollTo({ top: "0", behavior: "smooth" })}
           >
+            {/* {console.log(image)} */}
             <div className="h-28 flex flex-col justify-center items-center">
               <img
                 src={image}
@@ -50,12 +56,19 @@ const CardFeature = ({
             {/* <p className="text-slate-400 font-medium">{catagory}</p> */}
             <p className="font-bold text-sm text-center text-stone-800">
               <span className="text-red-500">₹</span>
-              <span>
-                {price}/- {quantity}
-              </span>
+              {{ price_full } ? (
+                <span>{price_full}/- Kg</span>
+              ) : { price_half } ? (
+                <span>{price_half}/- 0.5Kg</span>
+              ) : price_quarter ? (
+                <span>{price_quarter}/- 250g</span>
+              ) : (
+                <span className=" text-red-600 text-lg">
+                  Error! Pls do not add Item"
+                </span>
+              )}
             </p>
             <p className="text-emerald-700 font-small italic text-right">
-              {" "}
               ~ by {seller}
             </p>
           </Link>

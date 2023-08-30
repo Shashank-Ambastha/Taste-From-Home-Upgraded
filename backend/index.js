@@ -111,10 +111,12 @@ const schemaProduct = mongoose.Schema({
   name: String,
   catagory: String,
   image: String,
-  price: String,
+  price_full: String,
+  price_half: String,
+  price_quarter: String,
   description: String,
   seller: String,
-  quantity: String,
+  // quantity: String,
 });
 const productModel = mongoose.model("product", schemaProduct);
 
@@ -131,4 +133,4 @@ app.get("/product", async (req, res) => {
 });
 
 //server is running
-app.listen(PORT, () => console.log("Server is Running at PORT : " + PORT));
+app.listen(PORT, () => console.log("TFH Server is Running at PORT : " + PORT));

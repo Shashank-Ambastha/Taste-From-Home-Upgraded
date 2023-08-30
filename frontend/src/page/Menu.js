@@ -38,7 +38,8 @@ const Menu = () => {
           <p className="font-bold text-xl">
             <span className="text-red-500">₹</span>
             <span>
-              {productDisplay.price} per {productDisplay.quantity}
+              {productDisplay.price_full} /- Kg
+              {/* {productDisplay.quantity} */}
             </span>
           </p>
           <p className="text-green-500 font-small italic text-xl">
