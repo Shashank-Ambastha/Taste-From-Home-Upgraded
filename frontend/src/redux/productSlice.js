@@ -17,6 +17,7 @@ export const productSlice = createSlice({
     addCartItem: (state, action) => {
       // console.log(action);
       const check = state.cartItem.some((el) => el._id === action.payload._id);
+      // console.log("QWERTYUI => ", action.payload.seller);
       if (check) {
         toast("Item Already added to cart.");
         // const index = state.cartItem.findIndex((el) => el._id === action.payload);
@@ -25,8 +26,14 @@ export const productSlice = createSlice({
         const total = action.payload.price;
         state.cartItem = [
           ...state.cartItem,
-          { ...action.payload, qty: 1, total: total },
+          {
+            ...action.payload,
+            qty: 1,
+            total: total,
+            selected: action.payload.selected,
+          },
         ];
+        // console.log("Selected-Redux: ", action.payload.selected);
       }
     },
     deleteCartItem: (state, action) => {

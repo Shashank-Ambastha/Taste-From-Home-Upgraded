@@ -10,13 +10,13 @@ import AllProduct from "../component/AllProduct";
 
 const Home = () => {
   const productData = useSelector((state) => state.product.productList);
-  // console.log(productData);
+  console.log(productData);
   const homeProductCartList = productData.slice(0, 4);
   const homeProductCartListLadduBarfi = productData.filter(
     (el) => el.catagory === "Laddu - Barfi",
     []
   );
-  console.log(homeProductCartListLadduBarfi);
+  // console.log(homeProductCartListLadduBarfi);
 
   const loadingArray = new Array(4).fill(null);
   const loadingArrayFeature = new Array(10).fill(null);

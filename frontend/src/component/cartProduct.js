@@ -13,14 +13,11 @@ const CartProduct = ({
   name,
   catagory,
   seller,
-  price_full,
-  price_half,
-  price_quarter,
-  // quantity,
-  // price,
+  price,
   image,
   qty,
   total,
+  selected,
 }) => {
   const dispatch = useDispatch();
   return (
@@ -39,8 +36,8 @@ const CartProduct = ({
         <p className="text-slate-400 font-medium ">{catagory}</p>
         <p className="font-semibold text-base">
           <span className="text-red-500">₹</span>
-          <span>{price_full} </span>
-          <span className="pl-2 md:pl-3">Quantity: 1Kg</span>
+          <span>{price} </span>
+          <span className="pl-2 md:pl-3">Quantity: {selected} Kg</span>
           <span className="text-green-500 pl-2 md:pl-3 font-small italic text-md font-normal">
             ~ by {seller}
           </span>
@@ -76,7 +73,7 @@ const CartProduct = ({
           </div>
           <div className="flex items-center gap-2 font-bold text-slate-700">
             <p>Qty :</p>
-            <p>{qty} Kg</p>
+            <p>{selected * qty} Kg</p>
           </div>
           <div className="flex items-center gap-2 font-bold text-slate-700">
             <p>Total:</p>

@@ -38,12 +38,10 @@ const Cart = () => {
                     id={el._id}
                     image={el.image}
                     name={el.name}
-                    price_full={el.price_full}
-                    price_half={el.price_half}
-                    price_quarter={el.price_quarter}
-                    // quantity={el.quantity}
                     seller={el.seller}
                     catagory={el.catagory}
+                    price={el.price}
+                    selected={el.selected}
                     qty={el.qty}
                     total={el.total}
                   />
