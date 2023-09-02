@@ -1,10 +1,10 @@
 import React from "react";
-import Nan_Khatai from "../snacksimgs/karishma/Nan Khatai_Rose Flavor_Rajvi.jpeg";
-import Sukhadi from "../snacksimgs/radha/Sukhadi-Gud Papdi_Radha.jpeg";
-import Thekua from "../snacksimgs/vini/Thekua_Vini.jpg";
-import Gujiya from "../snacksimgs/sumitra/Gujiya_Sumitra.jpeg";
-import Nimki from "../snacksimgs/karishma/Nimki_Namakpare_Rajvi.jpeg";
-import Gulab_Jamun from "../snacksimgs/vandana/Gulab Jamun_Vandana.jpeg";
+import Nan_Khatai from "../images/About Images/Nan Khatai_Rose Flavor_Rajvi.jpeg";
+import Sukhadi from "../images/About Images/Sukhadi-Gud Papdi_Radha.jpeg";
+import Thekua from "../images/About Images/Thekua_Vini.jpg";
+import Gujiya from "../images/About Images/Gujiya_Sumitra.jpeg";
+import Nimki from "../images/About Images/Nimki_Namakpare_Rajvi.jpeg";
+import Gulab_Jamun from "../images/About Images/Gulab Jamun_Vandana.jpeg";
 
 const About = () => {
   return (

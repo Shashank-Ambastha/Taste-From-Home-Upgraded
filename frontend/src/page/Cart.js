@@ -1,9 +1,10 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import CartProduct from "../component/cartProduct";
-// import { current } from "@reduxjs/toolkit";
-import emptyCart from "../imgs/empty.gif";
+import emptyCart from "../images/empty.gif";
 import { Link } from "react-router-dom";
+import { toast } from "react-hot-toast";
+import { loadStripe } from "@stripe/stripe-js";
 
 const Cart = () => {
   const productCartItem = useSelector((state) => state.product.cartItem);
@@ -16,6 +17,30 @@ const Cart = () => {
     (acc, curr) => acc + parseInt(curr.qty),
     0
   );
+
+  const handlePayement = async () => {
+    const stripePromise = await loadStripe(
+      process.env.REACT_APP_STRIPE_PUBLIC_KEY
+    );
+    const res = await fetch(
+      `${process.env.REACT_APP_SERVER_DOMAIN}/checkout-payment`,
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(productCartItem),
+      }
+    );
+    if (res.statusCode === 500) return;
+
+    const data = await res.json();
+    console.log("WERT=>", data);
+
+    toast("Redirecting to Payment Gateway........!");
+    stripePromise.redirectToCheckout({ sessionId: data });
+  };
+
   return (
     <div className="p-2 md:p-4 relative overflow-hidden">
       {/* 
@@ -62,7 +87,10 @@ const Cart = () => {
                 {totalPrice}
               </p>
             </div>
-            <button className=" bg-indigo-950 text-white hover:shadow-md font-bold hover:shadow-yellow-500 w-full transition-smooth py-1">
+            <button
+              onClick={handlePayement}
+              className=" bg-indigo-950 text-white hover:shadow-md font-bold hover:shadow-yellow-500 w-full transition-smooth py-1"
+            >
               Payment
             </button>
           </div>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import signupvid from "../imgs/signup.gif";
+import signupvid from "../images/signup.gif";
 import { BiHide, BiShowAlt } from "react-icons/bi";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";

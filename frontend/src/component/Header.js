@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import logo from "../imgs/logo.jpg";
+import logo from "../images/logo.jpg";
 import { FaUserAlt } from "react-icons/fa";
 // import { BsCartFill } from "react-icons/bs";
 import { BsCart2 } from "react-icons/bs";
