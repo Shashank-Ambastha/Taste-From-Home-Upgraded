@@ -2,13 +2,16 @@ import React from "react";
 import { useSelector } from "react-redux";
 import CartProduct from "../component/cartProduct";
 import emptyCart from "../images/empty.gif";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { loadStripe } from "@stripe/stripe-js";
 
 const Cart = () => {
   const productCartItem = useSelector((state) => state.product.cartItem);
-  console.log(productCartItem);
+  // console.log(productCartItem);
+  const user = useSelector((state) => state.user);
+  // console.log(user);
+  const navigate = useNavigate();
   const totalPrice = productCartItem.reduce(
     (acc, curr) => acc + parseInt(curr.total),
     0
@@ -19,30 +22,36 @@ const Cart = () => {
   );
 
   const handlePayement = async () => {
-    const stripePromise = await loadStripe(
-      process.env.REACT_APP_STRIPE_PUBLIC_KEY
-    );
-    const res = await fetch(
-      `${process.env.REACT_APP_SERVER_DOMAIN}/checkout-payment`,
-      {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(productCartItem),
-      }
-    );
-    if (res.statusCode === 500) return;
+    if (user.email) {
+      const stripePromise = await loadStripe(
+        process.env.REACT_APP_STRIPE_PUBLIC_KEY
+      );
+      const res = await fetch(
+        `${process.env.REACT_APP_SERVER_DOMAIN}/checkout-payment`,
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(productCartItem),
+        }
+      );
+      if (res.statusCode === 500) return;
 
-    const data = await res.json();
-    console.log("WERT=>", data);
+      const data = await res.json();
 
-    toast("Redirecting to Payment Gateway........!");
-    stripePromise.redirectToCheckout({ sessionId: data });
+      toast("Redirecting to Payment Gateway........!");
+      stripePromise.redirectToCheckout({ sessionId: data });
+    } else {
+      toast("You have not logged in! \nPlease Log In to continue!!");
+      setTimeout(() => {
+        navigate("../login");
+      }, 1000);
+    }
   };
 
   return (
-    <div className="p-2 md:p-4 relative overflow-hidden">
+    <div className="p-2 md:p-4 relative overflow-scroll md:overflow-hidden">
       {/* 
       bg-gradient-to-r from-orange-400 via-white to-green-500
       <img
@@ -74,7 +83,7 @@ const Cart = () => {
               })}
             </div>
           </div>
-          <div className="w-full ma-x-md ml-auto bg-gray-900 bg-opacity-30 max-h-40">
+          <div className="w-full max-md ml-auto bg-gray-900 bg-opacity-30 max-h-40">
             <h2 className="bg-blue-500 text-white p-2 text-lg">Summary:</h2>
             <div className="flex w-full py-2 text-lg border-b border-black text-semibold text-slate-100 drop-shadow-[1px_1px_1px_rgba(0,0,0,1)]">
               <p className="">Total Items:</p>

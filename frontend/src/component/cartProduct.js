@@ -33,17 +33,19 @@ const CartProduct = ({
         <h3 className="font-semibold text-slate-800 capitalise word-wrap text-lg md:text-xl">
           {name}
         </h3>
-        <p className="text-slate-400 font-medium ">{catagory}</p>
+        <p className="text-slate-400 font-medium ">
+          {catagory}
+          <span className="text-emerald-700 ml-20 pl-2 md:pl-3 font-small italic text-md font-normal">
+            ~ by {seller}
+          </span>
+        </p>
         <p className="font-semibold text-base">
           <span className="text-red-500">₹</span>
           <span>{price} </span>
           <span className="pl-2 md:pl-3">Quantity: {selected} Kg</span>
-          <span className="text-green-500 pl-2 md:pl-3 font-small italic text-md font-normal">
-            ~ by {seller}
-          </span>
         </p>
         <div className="flex justify-between">
-          <div className="flex gap-3 items-center p-1">
+          <div className="flex gap-1 md:gap-3 items-center p-1">
             <button
               onClick={() => dispatch(increaseQty(id))}
               className="bg-slate-300 p-1 my-2 mt-2 rounded-full hover:bg-slate-400"
@@ -66,16 +68,16 @@ const CartProduct = ({
 
             <button
               onClick={() => dispatch(deleteCartItem(id))}
-              className=" p-1 my-2 mt-2 ml-4 hover:rounded-full hover:bg-red-500 cursor-pointer"
+              className=" p-1 my-2 mt-2 ml-1 md:ml-4 hover:rounded-full hover:bg-red-500 cursor-pointer"
             >
               <AiOutlineDelete />
             </button>
           </div>
-          <div className="flex items-center gap-2 font-bold text-slate-700">
-            <p>Qty :</p>
+          <div className="flex items-center gap-1 md:gap-2 font-bold text-slate-700">
+            <p className="text-xs md:text-base">Qty :</p>
             <p>{selected * qty} Kg</p>
           </div>
-          <div className="flex items-center gap-2 font-bold text-slate-700">
+          <div className="flex text-xs md:text-base items-center gap-2 font-bold text-slate-700">
             <p>Total:</p>
             <p>
               <span className="text-red-500">₹</span>

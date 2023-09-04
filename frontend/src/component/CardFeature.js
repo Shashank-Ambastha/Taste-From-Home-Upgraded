@@ -30,7 +30,7 @@ const CardFeature = ({
     if (id === el._id) {
       ind = i;
       console.log(ind);
-      return;
+      return i;
     }
   });
 

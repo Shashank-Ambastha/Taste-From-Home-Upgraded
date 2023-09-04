@@ -1,21 +1,76 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import AllProduct from "../component/AllProduct";
-import { addCartItem } from "../redux/productSlice";
+import {
+  addCartItem,
+  deleteCartItem,
+  increaseQty,
+  decreaseQty,
+} from "../redux/productSlice";
+import { AiOutlineDelete } from "react-icons/ai";
+import { FiPlus, FiMinus } from "react-icons/fi";
 
 const Menu = () => {
   const { filterby } = useParams();
   const productData = useSelector((state) => state.product.productList);
-  // console.log(productData);
-
-  const dispatch = useDispatch();
-
   const productDisplay = productData.filter((el) => el._id === filterby)[0];
   console.log(productDisplay);
 
-  const handleAddCartProduct = (e) => {
-    dispatch(addCartItem(productDisplay));
+  const productCartItem = useSelector((state) => state.product.cartItem);
+  // console.log(productData);
+
+  let ind = 0;
+  productCartItem.filter((el, i) => {
+    if (productDisplay.id === el._id) {
+      ind = i;
+      console.log(ind);
+      return i;
+    }
+  });
+
+  const [price, setPrice] = useState(0);
+  const [showMenu, setShowMenu] = useState(false);
+
+  const handleShowMenu = (e) => {
+    if (
+      productDisplay.price_full &&
+      !productDisplay.price_half &&
+      !productDisplay.price_quarter
+    ) {
+      setPrice(productDisplay.price_full);
+      handleAddCartProduct(productDisplay.price_full, 1);
+    } else if (
+      productDisplay.price_half &&
+      !productDisplay.price_full &&
+      !productDisplay.price_quarter
+    ) {
+      setPrice(productDisplay.price_half);
+      handleAddCartProduct(productDisplay.price_half, 0.5);
+    } else if (
+      productDisplay.price_quarter &&
+      !productDisplay.price_full &&
+      !productDisplay.price_half
+    ) {
+      setPrice(productDisplay.price_quarter);
+      handleAddCartProduct(productDisplay.price_quarter, 0.25);
+    } else setShowMenu((prev) => !prev);
+  };
+
+  const dispatch = useDispatch();
+
+  const handleAddCartProduct = (price, selected) => {
+    dispatch(
+      addCartItem({
+        _id: productDisplay.id,
+        name: productDisplay.name,
+        price: price,
+        selected: selected,
+        catagory: productDisplay.catagory,
+        image: productDisplay.image,
+        seller: productDisplay.seller,
+      })
+    );
   };
 
   return (
@@ -38,23 +93,109 @@ const Menu = () => {
           <p className="font-bold text-xl">
             <span className="text-red-500">₹</span>
             <span>
-              {productDisplay.price_full} /- Kg
-              {/* {productDisplay.quantity} */}
+              {productDisplay.price_full ? (
+                <span>{productDisplay.price_full} /- Kg</span>
+              ) : productDisplay.price_half ? (
+                <span>{productDisplay.price_half} /- 0.5Kg</span>
+              ) : productDisplay.price_quarter ? (
+                <span>{productDisplay.price_quarter} /- 250g</span>
+              ) : null}
             </span>
           </p>
-          <p className="text-green-500 font-small italic text-xl">
+          <p className="text-emerald-700 font-small italic text-xl text-right mr-16">
             ~ by {productDisplay.seller}
           </p>
           <div className="flex gap-3">
-            <button className="bg-amber-500 py-1 min-w-[100px] my-2 mt-2 rounded hover:bg-amber-600">
-              Buy Now
-            </button>
-            <button
-              onClick={handleAddCartProduct}
-              className="bg-amber-500 py-1 min-w-[100px] my-2 mt-2 rounded hover:bg-amber-600"
-            >
-              Add to cart
-            </button>
+            {!price ? (
+              <button
+                className=" bg-amber-500 py-1 px-10 my-2 mt-2 rounded hover:bg-amber-600 w-full max-w-fit "
+                onClick={handleShowMenu}
+              >
+                <span className=" px-16 ">Add to Cart </span>
+                {showMenu && !price && (
+                  <div className="absolute overscroll shadow drop-shadow-md min-w-[220px] flex flex-col bg-amber-400 bg-opacity-95 border border-indigo-950">
+                    {productDisplay.price_full && (
+                      <div
+                        className="flex hover:bg-amber-500 border-indigo-700 border-b"
+                        onClick={() => {
+                          setPrice(productDisplay.price_full);
+                          handleAddCartProduct(productDisplay.price_full, 1);
+                        }}
+                      >
+                        <p className=" ml-1 text-left">1 Kg</p>
+                        <p className=" mr-1 m-auto text-red-500">₹</p>
+                        <p className=" mr-1">{productDisplay.price_full}</p>
+                      </div>
+                    )}
+                    {productDisplay.price_half && (
+                      <div
+                        className="flex hover:bg-amber-500 border-indigo-700 border-b"
+                        onClick={() => {
+                          setPrice(productDisplay.price_half);
+                          handleAddCartProduct(productDisplay.price_half, 0.5);
+                        }}
+                      >
+                        <p className=" ml-1 text-left">0.5 Kg</p>
+                        <p className=" mr-1 m-auto text-red-500">₹</p>
+                        <p className=" mr-1 ">{productDisplay.price_half}</p>
+                      </div>
+                    )}
+                    {productDisplay.price_quarter && (
+                      <div
+                        className="flex hover:bg-amber-500"
+                        onClick={() => {
+                          setPrice(productDisplay.price_quarter);
+                          handleAddCartProduct(
+                            productDisplay.price_quarter,
+                            0.25
+                          );
+                        }}
+                      >
+                        <p className=" ml-1 text-left">250 g</p>
+                        <p className=" mr-1 m-auto text-red-500">₹</p>
+                        <p className=" mr-1 ">{productDisplay.price_quarter}</p>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </button>
+            ) : (
+              <div className="flex justify-between gap-3 items-center p-1">
+                <button
+                  onClick={() => {
+                    dispatch(increaseQty(productDisplay.id));
+                  }}
+                  className="bg-slate-300 p-1 my-2 mt-2 rounded-full hover:bg-slate-400"
+                >
+                  <FiPlus />
+                </button>
+                <p className="pb-1 font-semibold">{productCartItem[ind].qty}</p>
+                {productCartItem[ind].qty > 1 ? (
+                  <button
+                    onClick={() => {
+                      dispatch(decreaseQty(productDisplay.id));
+                    }}
+                    className="bg-slate-300 p-1 my-2 mt-2 rounded-full hover:bg-slate-400"
+                  >
+                    <FiMinus />
+                  </button>
+                ) : (
+                  <button className=" hover:cursor-default p-1 my-2 mt-2 rounded-full">
+                    <FiMinus />
+                  </button>
+                )}
+
+                <button
+                  onClick={() => {
+                    dispatch(deleteCartItem(productDisplay.id));
+                    setPrice(0);
+                  }}
+                  className=" p-1 my-2 mt-2 ml-4 hover:rounded-full hover:bg-red-500 cursor-pointer"
+                >
+                  <AiOutlineDelete />
+                </button>
+              </div>
+            )}
           </div>
           <div>
             <p className="text-slate-600 font-medium">Description:</p>
