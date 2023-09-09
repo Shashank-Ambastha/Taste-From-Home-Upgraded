@@ -16,8 +16,9 @@ export const productSlice = createSlice({
     },
     addCartItem: (state, action) => {
       // console.log(action);
-      const check = state.cartItem.some((el) => el._id === action.payload._id);
-      // console.log("QWERTYUI => ", action.payload.seller);
+      console.log(action.payload);
+      const check = state.cartItem.some((el) => el._id === action.payload.id);
+      console.log("QWERTYUI => ", action.payload.id);
       if (check) {
         toast("Item Already added to cart.");
         // const index = state.cartItem.findIndex((el) => el._id === action.payload);

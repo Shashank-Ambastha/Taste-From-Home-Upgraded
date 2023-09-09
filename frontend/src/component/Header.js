@@ -85,7 +85,7 @@ const Header = () => {
                     New Product
                   </Link>
                 )}
-                {userData.image ? (
+                {userData.email ? (
                   <p
                     className="cursor-pointer text-white hover:bg-red-500 px-2"
                     onClick={handleLogOut}

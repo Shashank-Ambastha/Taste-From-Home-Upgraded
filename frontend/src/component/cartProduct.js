@@ -20,6 +20,7 @@ const CartProduct = ({
   selected,
 }) => {
   const dispatch = useDispatch();
+  console.log(id, "  ", name);
   return (
     <div className=" bg-slate-200 p-2 flex gap-4 hover:shadow-sm hover:shadow-teal-400 border-2 border-slate-300 m-2">
       <div className=" bg-white p-1 rounded overflow-hidden">

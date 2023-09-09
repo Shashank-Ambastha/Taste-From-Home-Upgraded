@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import AllProduct from "../component/AllProduct";
@@ -17,19 +17,7 @@ const Menu = () => {
   const productDisplay = productData.filter((el) => el._id === filterby)[0];
   console.log(productDisplay);
 
-  const productCartItem = useSelector((state) => state.product.cartItem);
-  // console.log(productData);
-
-  let ind = 0;
-  productCartItem.filter((el, i) => {
-    if (productDisplay.id === el._id) {
-      ind = i;
-      console.log(ind);
-      return i;
-    }
-  });
-
-  const [price, setPrice] = useState(0);
+  // const [price, setPrice] = useState(0);
   const [showMenu, setShowMenu] = useState(false);
 
   const handleShowMenu = (e) => {
@@ -38,21 +26,21 @@ const Menu = () => {
       !productDisplay.price_half &&
       !productDisplay.price_quarter
     ) {
-      setPrice(productDisplay.price_full);
+      // setPrice(productDisplay.price_full);
       handleAddCartProduct(productDisplay.price_full, 1);
     } else if (
       productDisplay.price_half &&
       !productDisplay.price_full &&
       !productDisplay.price_quarter
     ) {
-      setPrice(productDisplay.price_half);
+      // setPrice(productDisplay.price_half);
       handleAddCartProduct(productDisplay.price_half, 0.5);
     } else if (
       productDisplay.price_quarter &&
       !productDisplay.price_full &&
       !productDisplay.price_half
     ) {
-      setPrice(productDisplay.price_quarter);
+      // setPrice(productDisplay.price_quarter);
       handleAddCartProduct(productDisplay.price_quarter, 0.25);
     } else setShowMenu((prev) => !prev);
   };
@@ -62,7 +50,7 @@ const Menu = () => {
   const handleAddCartProduct = (price, selected) => {
     dispatch(
       addCartItem({
-        _id: productDisplay.id,
+        _id: productDisplay._id,
         name: productDisplay.name,
         price: price,
         selected: selected,
@@ -72,6 +60,22 @@ const Menu = () => {
       })
     );
   };
+
+  const productCartItem = useSelector((state) => state.product.cartItem);
+  const [ind, setInd] = useState(-1);
+  // console.log(productData);
+
+  // let ind = 0;
+  useEffect(() => {
+    setInd(-1);
+    productCartItem.filter((el, i) => {
+      if (productDisplay._id === el._id) {
+        setInd(i);
+        console.log(ind, i);
+        // return i;
+      }
+    });
+  }, [productCartItem, productDisplay, deleteCartItem]);
 
   return (
     <div className="p-2 md:p-4 overflow-hidden">
@@ -106,19 +110,19 @@ const Menu = () => {
             ~ by {productDisplay.seller}
           </p>
           <div className="flex gap-3">
-            {!price ? (
+            {ind === -1 ? (
               <button
                 className=" bg-amber-500 py-1 px-10 my-2 mt-2 rounded hover:bg-amber-600 w-full max-w-fit "
                 onClick={handleShowMenu}
               >
                 <span className=" px-16 ">Add to Cart </span>
-                {showMenu && !price && (
+                {showMenu && (
                   <div className="absolute overscroll shadow drop-shadow-md min-w-[220px] flex flex-col bg-amber-400 bg-opacity-95 border border-indigo-950">
                     {productDisplay.price_full && (
                       <div
                         className="flex hover:bg-amber-500 border-indigo-700 border-b"
                         onClick={() => {
-                          setPrice(productDisplay.price_full);
+                          // setPrice(productDisplay.price_full);
                           handleAddCartProduct(productDisplay.price_full, 1);
                         }}
                       >
@@ -131,7 +135,7 @@ const Menu = () => {
                       <div
                         className="flex hover:bg-amber-500 border-indigo-700 border-b"
                         onClick={() => {
-                          setPrice(productDisplay.price_half);
+                          // setPrice(productDisplay.price_half);
                           handleAddCartProduct(productDisplay.price_half, 0.5);
                         }}
                       >
@@ -144,7 +148,7 @@ const Menu = () => {
                       <div
                         className="flex hover:bg-amber-500"
                         onClick={() => {
-                          setPrice(productDisplay.price_quarter);
+                          // setPrice(productDisplay.price_quarter);
                           handleAddCartProduct(
                             productDisplay.price_quarter,
                             0.25
@@ -160,41 +164,45 @@ const Menu = () => {
                 )}
               </button>
             ) : (
-              <div className="flex justify-between gap-3 items-center p-1">
-                <button
-                  onClick={() => {
-                    dispatch(increaseQty(productDisplay.id));
-                  }}
-                  className="bg-slate-300 p-1 my-2 mt-2 rounded-full hover:bg-slate-400"
-                >
-                  <FiPlus />
-                </button>
-                <p className="pb-1 font-semibold">{productCartItem[ind].qty}</p>
-                {productCartItem[ind].qty > 1 ? (
+              productCartItem[ind] && (
+                <div className="flex justify-between gap-3 items-center p-1">
                   <button
                     onClick={() => {
-                      dispatch(decreaseQty(productDisplay.id));
+                      dispatch(increaseQty(productDisplay._id));
                     }}
                     className="bg-slate-300 p-1 my-2 mt-2 rounded-full hover:bg-slate-400"
                   >
-                    <FiMinus />
+                    <FiPlus />
                   </button>
-                ) : (
-                  <button className=" hover:cursor-default p-1 my-2 mt-2 rounded-full">
-                    <FiMinus />
-                  </button>
-                )}
+                  <p className="pb-1 font-semibold">
+                    {productCartItem[ind].qty}
+                  </p>
+                  {productCartItem[ind].qty > 1 ? (
+                    <button
+                      onClick={() => {
+                        dispatch(decreaseQty(productDisplay._id));
+                      }}
+                      className="bg-slate-300 p-1 my-2 mt-2 rounded-full hover:bg-slate-400"
+                    >
+                      <FiMinus />
+                    </button>
+                  ) : (
+                    <button className=" hover:cursor-default p-1 my-2 mt-2 rounded-full">
+                      <FiMinus />
+                    </button>
+                  )}
 
-                <button
-                  onClick={() => {
-                    dispatch(deleteCartItem(productDisplay.id));
-                    setPrice(0);
-                  }}
-                  className=" p-1 my-2 mt-2 ml-4 hover:rounded-full hover:bg-red-500 cursor-pointer"
-                >
-                  <AiOutlineDelete />
-                </button>
-              </div>
+                  <button
+                    onClick={() => {
+                      dispatch(deleteCartItem(productDisplay._id));
+                      setInd(-1);
+                    }}
+                    className=" p-1 my-2 mt-2 ml-4 hover:rounded-full hover:bg-red-500 cursor-pointer"
+                  >
+                    <AiOutlineDelete />
+                  </button>
+                </div>
+              )
             )}
           </div>
           <div>
