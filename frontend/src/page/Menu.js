@@ -15,7 +15,6 @@ const Menu = () => {
   const { filterby } = useParams();
   const productData = useSelector((state) => state.product.productList);
   const productDisplay = productData.filter((el) => el._id === filterby)[0];
-  // console.log(productDisplay);
 
   const [showMenu, setShowMenu] = useState(false);
 
@@ -65,16 +64,14 @@ const Menu = () => {
     productCartItem.filter((el, i) => {
       if (productDisplay._id === el._id) {
         setInd(i);
-        // console.log(ind, i);
       }
       return 0;
     });
   }, [productCartItem, productDisplay]);
-  // }, [productCartItem, productDisplay, deleteCartItem]);
 
-  return (
+  return productDisplay ? (
     <div className="p-2 md:p-4 overflow-hidden">
-      <div className="w-full max-w-[950px] max-h-[350px] m-auto md:flex bg-white">
+      <div className="w-full max-w-[950px] max-h-[350px] m-auto md:flex bg-white drop-shadow-[1px_1px_1px_rgba(0,0,0,1)]">
         <div className="max-w-sm overflow-hidden w-full p-5">
           <img
             src={productDisplay.image}
@@ -199,12 +196,16 @@ const Menu = () => {
           </div>
           <div>
             <p className="text-slate-600 font-medium">Description:</p>
-            <p>{productDisplay.description}</p>
+            <p className=" pb-2">{productDisplay.description}</p>
           </div>
         </div>
       </div>
       <AllProduct heading={"Related Products"} />
     </div>
+  ) : (
+    <h1 className=" font-bold text-white text-4xl text-center mt-5 drop-shadow-[1px_1px_1px_rgba(0,0,0,1)]">
+      Loading......
+    </h1>
   );
 };
 

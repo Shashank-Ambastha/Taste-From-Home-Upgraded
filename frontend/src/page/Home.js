@@ -3,20 +3,16 @@ import { useSelector } from "react-redux";
 import HomeCard from "../component/HomeCard";
 import CardFeature from "../component/CardFeature";
 import { GrPrevious, GrNext } from "react-icons/gr";
-// import FilterProduct from "../component/FilterProduct";
-// import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import AllProduct from "../component/AllProduct";
 
 const Home = () => {
   const productData = useSelector((state) => state.product.productList);
-  console.log(productData);
   const homeProductCartList = productData.slice(2, 6);
   const homeProductCartListLadduBarfi = productData.filter(
     (el) => el.catagory === "Laddu - Barfi",
     []
   );
-  // console.log(homeProductCartListLadduBarfi);
 
   const loadingArray = new Array(4).fill(null);
   const loadingArrayFeature = new Array(10).fill(null);
@@ -28,9 +24,6 @@ const Home = () => {
   const preveProduct = () => {
     slideProductRef.current.scrollLeft -= 200;
   };
-  // const homeProductCartList2 = productData.slice(2, 3);
-  // const homeProductCartList3 = productData.slice(4, 5);
-  // const homeProductCartList4 = productData.slice(6, 7);
 
   return (
     <div className="p-2 md:p-4 overflow-hidden">
@@ -41,8 +34,6 @@ const Home = () => {
             <span className=" text-orange-500 md:text-7xl drop-shadow-[2px_2px_2px_rgba(0,0,0,1)]">
               Taste From Home
             </span>
-            {/* <br /> Order Super-tasty and Healthy Home-made delicacies and have
-            it delivered right at your doorstep. */}
           </h2>
           <p className="py-3 text-l px-2 text-slate-200 drop-shadow-[1px_1px_1px_rgba(0,0,0,1)]">
             Order super-tasty and healthy homemade delicacies and have it
@@ -72,7 +63,6 @@ const Home = () => {
                     price_half={el.price_half}
                     price_quarter={el.price_quarter}
                     catagory={el.catagory}
-                    // quantity={el.quantity}
                     seller={el.seller}
                   />
                 );
@@ -122,7 +112,6 @@ const Home = () => {
                     price_quarter={el.price_quarter}
                     image={el.image}
                     seller={el.seller}
-                    // quantity={el.quantity}
                   />
                 );
               })

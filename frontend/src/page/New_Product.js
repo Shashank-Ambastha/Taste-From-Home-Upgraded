@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { BsCloudUpload } from "react-icons/bs";
 import { toast } from "react-hot-toast";
 import { useSelector } from "react-redux";
-// import { ImageToBase64 } from "../utility/imagetoBase64";
 
 const NewProduct = () => {
   const [data, setData] = useState({
@@ -17,7 +16,6 @@ const NewProduct = () => {
   });
 
   const userData = useSelector((state) => state.user);
-  // console.log("QWERTY=>", userData);
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -31,9 +29,6 @@ const NewProduct = () => {
   };
 
   const uploadImage = async (e) => {
-    // display the product image that is uploaded in the form
-    // pending state of asynchronous operation
-    // const data = await ImageToBase64(e.target.files[0]); // converts the image into base 64
     const data = new FormData();
     data.append("file", e.target.files[0]);
     data.append("upload_preset", "Taste-From-Home-Upgraded-Products");
@@ -44,7 +39,6 @@ const NewProduct = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("Cloudinary: ", data.url);
         setData((prev) => {
           return {
             ...prev,
@@ -56,7 +50,6 @@ const NewProduct = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(data);
 
     const {
       name,
@@ -87,7 +80,6 @@ const NewProduct = () => {
       );
 
       const fetchRes = await fetchData.json();
-      console.log(fetchRes);
       toast(fetchRes.message);
 
       setData(() => {
@@ -95,7 +87,6 @@ const NewProduct = () => {
           name: "",
           catagory: "",
           seller: "",
-          // quantity: "",
           image: "",
           price_full: "",
           price_half: "",
@@ -135,8 +126,6 @@ const NewProduct = () => {
               value={data.seller}
             >
               <option value={"other"}>Select Seller</option>
-              {/* <option value={"Vandana"}>Vandana</option> */}
-              {/* <option value={"Karishma"}>Karishma</option> */}
               <option value={"Vini"}>Vini</option>
               <option value={"Sumitra"}>Sumitra</option>
               <option value={"Radha"}>Radha</option>
@@ -163,7 +152,6 @@ const NewProduct = () => {
 
             <label htmlFor="image" className="my-1">
               Image
-              {/* {console.log("QWERTYU=>", data.image)} */}
               <div className="h-40 w-full bg-green-100 rounded flex items-center justify-center cursor-pointer">
                 {data.image ? (
                   <img src={data.image} className="h-full" alt="Data img" />

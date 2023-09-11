@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import signupvid from "../images/signup.gif";
 import { BiHide, BiShowAlt } from "react-icons/bi";
 import { Link, useNavigate } from "react-router-dom";
-// import { ImageToBase64 } from "../utility/imagetoBase64";
 import { toast } from "react-hot-toast";
 
 function SignUp() {
@@ -17,9 +16,6 @@ function SignUp() {
     confirmPassword: "",
     image: "",
   });
-  // const [loading, setLoading] = useState(false);
-
-  console.log(data);
 
   const handleShowPassword = () => {
     setShowPassword((preve) => !preve);
@@ -29,7 +25,6 @@ function SignUp() {
     setShowConfirmPassword((preve) => !preve);
   };
 
-  //   function for already registered user case
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setData((preve) => {
@@ -37,20 +32,11 @@ function SignUp() {
     });
   };
 
-  // handles asynchronous operations using promise (eventual completion/failure)
   const handleUploadProfileImage = async (e) => {
-    // pending state of asynchronous operation
-    // const data = await ImageToBase64(e.target.files[0]);
-    // console.log(e.target.files[0]);
-    // setLoading(true);
     if (e.target.files[0] === undefined) {
       toast("Please Select an Image!!");
       return;
     }
-    // if (
-    //   e.target.files[0].type === "image/jpeg" ||
-    //   e.target.files[0].type === "image/png"
-    // ) {
     const data = new FormData();
     data.append("file", e.target.files[0]);
     data.append("upload_preset", "Taste-From-Home-Upgraded-Users");
@@ -61,7 +47,6 @@ function SignUp() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("Cloudinary Link: ", data.url);
         setData((preve) => {
           return {
             ...preve,
@@ -69,49 +54,14 @@ function SignUp() {
           };
         });
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
-  // console.log("QWERTYUI", imgUrl);
-  // .then((res) => res.json())
-  // .then((data) => {
-  //   setData.image(data.url.toString());
-  //   console.log(data.url.toString());
-  //   setLoading(false);
-  // });
 
-  // }
-
-  // const data1 = new FormData();
-  // data1.append("file", e.target.files[0]);
-  // data1.append("cloud_name", "duhkcllbl");
-  // data1.append("upload_preset", "Taste_From_Home");
-  // const imgUrl = await fetch(
-  //   "https://api.cloudinary.com/v1_1/duhkcllbl/image/upload",
-  //   {
-  //     method: "POST",
-  //     body: data1,
-  //   }
-  // );
-  // console.log("QWERTY", imgUrl);
-
-  // setData((preve) => {
-  //   return {
-  //     ...preve,
-  //     image: data,
-  //   };
-  // });
-
-  console.log(process.env.REACT_APP_SERVER_DOMAIN);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // prevents the page from refreshing when the submit button is clicked so the data is intact in the form to be handled further
-    const { firstName, email, password, confirmPassword } = data; //extract all the mandatory data from the form into const var
+    const { firstName, email, password, confirmPassword } = data;
     if (firstName && email && password && confirmPassword) {
-      //this m akes sure that these fields are non-empty
       if (password === confirmPassword) {
-        //if this is verified, then send all data to the server and navigate to login page
         const fetchData = await fetch(
           `${process.env.REACT_APP_SERVER_DOMAIN}/signup`,
           {
@@ -122,8 +72,6 @@ function SignUp() {
         );
 
         const dataRes = await fetchData.json();
-        console.log(dataRes);
-        // alert(dataRes.message);
         toast(dataRes.message);
         if (dataRes.alert) {
           navigate("/login");
@@ -139,9 +87,7 @@ function SignUp() {
   return (
     <div className="p-3 md:p-4">
       <div className="w-full max-w-sm bg-white m-auto flex flex-col p-4">
-        {/* <h1 className='text-center test-2xl font-bold'>SIGN UP</h1> */}
         <div className="w-20 h-20 overflow-hidden drop-shadow-md rounded-full shadow-md m-auto relative cursor-pointer">
-          {/* {console.log(data.image)} */}
           <img
             src={data.image ? data.image : signupvid}
             className="w-full h-full"

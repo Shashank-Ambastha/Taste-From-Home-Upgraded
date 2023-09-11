@@ -56,18 +56,6 @@ app.post("/signup", async (req, res) => {
     });
 });
 
-// userModel.find({ email: email }).then(function (result) {
-//   console.log(result);
-//   // console.log(err);
-//   if (result) {
-//     res.send({ message: "Email id is already registered!!" });
-//   } else {
-//     const data = userModel(req.body);
-//     const save = data.save();
-//     res.send({ message: "Sign Up Successful🥳" });
-//   }
-// });
-
 //api login
 app.post("/login", (req, res) => {
   console.log(req.body);
@@ -137,7 +125,6 @@ app.get("/product", async (req, res) => {
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 app.post("/checkout-payment", async (req, res) => {
-  // console.log("ASDFG->", Array.isArray(req.body));
   try {
     const params = {
       submit_type: "pay",
@@ -172,7 +159,7 @@ app.post("/checkout-payment", async (req, res) => {
     res.status(200).json(session.id);
   } catch (err) {
     res.status(err.statusCode || 500).json(err.message);
-  } // res.send({ message: "payment gateway", success: true });
+  }
 });
 
 //server is running

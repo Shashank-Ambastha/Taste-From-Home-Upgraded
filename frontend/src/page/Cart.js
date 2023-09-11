@@ -8,9 +8,7 @@ import { loadStripe } from "@stripe/stripe-js";
 
 const Cart = () => {
   const productCartItem = useSelector((state) => state.product.cartItem);
-  // console.log(productCartItem);
   const user = useSelector((state) => state.user);
-  // console.log(user);
   const navigate = useNavigate();
   const totalPrice = productCartItem.reduce(
     (acc, curr) => acc + parseInt(curr.total),
@@ -52,12 +50,6 @@ const Cart = () => {
 
   return (
     <div className="p-2 md:p-4 relative overflow-scroll md:overflow-hidden">
-      {/* 
-      bg-gradient-to-r from-orange-400 via-white to-green-500
-      <img
-        src={BG}
-        className="w-screen h-screen absolute overflow-hidden m-0"
-      /> */}
       <h2 className="text-lg md:text-2xl text-amber-200 font-bold">
         Your Cart Items
       </h2>

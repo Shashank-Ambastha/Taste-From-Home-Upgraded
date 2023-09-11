@@ -36,7 +36,6 @@ const CardFeature = ({
   };
 
   const handleAddCartProduct = (price, selected) => {
-    // e.stopPropagation();
     dispatch(
       addCartItem({
         _id: id,
@@ -57,12 +56,10 @@ const CardFeature = ({
     productCartItem.filter((el, i) => {
       if (id === el._id) {
         setInd(i);
-        console.log(ind);
       }
       return 0;
     });
-  }, [productCartItem]);
-  // }, [productCartItem, deleteCartItem]);
+  }, [productCartItem, id]);
 
   return (
     <div className="w-full min-w-[196px] max-w-[198px] rounded bg-white hover:shadow-2xl drop-shadow-[2px_2px_2px_rgba(0,0,0,1)] px-4 py-5 hover:cursor-pointer flex flex-col">
@@ -148,7 +145,6 @@ const CardFeature = ({
           ) : (
             productCartItem[ind] && (
               <div className="flex justify-between gap-3 items-center p-1">
-                {console.log("Ind:", ind)}
                 <button
                   onClick={() => {
                     dispatch(increaseQty(id));

@@ -6,11 +6,7 @@ import { useSelector } from "react-redux";
 const AllProduct = ({ heading }) => {
   const productData = useSelector((state) => state.product.productList);
   const catagoryList = [...new Set(productData.map((el) => el.catagory))];
-  // const quantityList = [...new Set(productData.map((el) => el.quantity))];
 
-  // console.log(catagoryList);
-
-  //filter data display
   const [filterby, setFilterBy] = useState("");
   const [dataFilter, setDataFilter] = useState([]);
   const loadingArrayFeature = new Array(10).fill(null);
@@ -64,7 +60,6 @@ const AllProduct = ({ heading }) => {
                   price_full={el.price_full}
                   price_half={el.price_half}
                   price_quarter={el.price_quarter}
-                  // quantity={el.quantity}
                 />
               );
             })

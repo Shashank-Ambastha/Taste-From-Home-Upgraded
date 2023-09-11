@@ -3,7 +3,7 @@ import signupvid from "../images/signup.gif";
 import { BiHide, BiShowAlt } from "react-icons/bi";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { loginRedux } from "../redux/userSlice";
 
 const Login = () => {
@@ -14,16 +14,12 @@ const Login = () => {
   });
   const navigate = useNavigate();
 
-  const userData = useSelector((state) => state);
-  // console.log(userData.user);
-
   const dispatch = useDispatch();
 
   const handleShowPassword = () => {
     setShowPassword((preve) => !preve);
   };
 
-  //   function for already registered user case
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setData((preve) => {
@@ -33,8 +29,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // prevents the page from refreshing when the submit button is clicked so the data is intact in the form to be handled further
-    const { email, password } = data; //extract all the mandatory data from the form into const var
+    const { email, password } = data;
     if (email && password) {
       const fetchData = await fetch(
         `${process.env.REACT_APP_SERVER_DOMAIN}/login`,
@@ -46,8 +41,6 @@ const Login = () => {
       );
 
       const dataRes = await fetchData.json();
-      console.log(dataRes);
-      console.log(userData);
       toast(dataRes.message);
       if (dataRes.alert) {
         dispatch(loginRedux(dataRes));
@@ -55,8 +48,6 @@ const Login = () => {
           navigate("/");
         }, 1000);
       }
-
-      console.log(userData);
     } else {
       alert("Please Enter All Required Details");
     }
@@ -65,7 +56,6 @@ const Login = () => {
   return (
     <div className="p-3 md:p-4">
       <div className="w-full max-w-sm bg-white m-auto flex flex-col p-4">
-        {/* <h1 className='text-center test-2xl font-bold'>SIGN UP</h1> */}
         <div className="w-20 overflow-hidden drop-shadow-md rounded-full shadow-md m-auto">
           <img src={signupvid} alt="sign up vid" className="w-full" />
         </div>

@@ -11,17 +11,12 @@ export const productSlice = createSlice({
   initialState,
   reducers: {
     setDataProduct: (state, action) => {
-      //   console.log(action);
       state.productList = [...action.payload];
     },
     addCartItem: (state, action) => {
-      // console.log(action);
-      console.log(action.payload);
       const check = state.cartItem.some((el) => el._id === action.payload.id);
-      console.log("QWERTYUI => ", action.payload.id);
       if (check) {
         toast("Item Already added to cart.");
-        // const index = state.cartItem.findIndex((el) => el._id === action.payload);
       } else {
         toast("Item Added successfully");
         const total = action.payload.price;
@@ -34,15 +29,12 @@ export const productSlice = createSlice({
             selected: action.payload.selected,
           },
         ];
-        // console.log("Selected-Redux: ", action.payload.selected);
       }
     },
     deleteCartItem: (state, action) => {
-      // console.log(action.payload);
       toast("One Item Deleted!!");
       const index = state.cartItem.findIndex((el) => el._id === action.payload);
       state.cartItem.splice(index, 1);
-      console.log(index);
     },
     increaseQty: (state, action) => {
       const index = state.cartItem.findIndex((el) => el._id === action.payload);

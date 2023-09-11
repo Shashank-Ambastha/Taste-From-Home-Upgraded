@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import logo from "../images/logo.jpg";
 import { FaUserAlt } from "react-icons/fa";
-// import { BsCartFill } from "react-icons/bs";
 import { BsCart2 } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,21 +8,16 @@ import { logoutRedux } from "../redux/userSlice";
 import { toast } from "react-hot-toast";
 
 const Header = () => {
-  // create a new state to create drop down menu and set default as false
   const [showMenu, setShowMenu] = useState(false);
-  // this will fetch the data from the user and store it in a const variable, pass a callback functon in const userData:
   const userData = useSelector((state) => state.user);
-  // console.log(userData);
-  // useState will always be inverted from T to F and vice versa using this fn
 
-  const dispatch = useDispatch(); // from react-redux
+  const dispatch = useDispatch();
 
   const handleShowMenu = () => {
     setShowMenu((preve) => !preve);
   };
 
   const handleLogOut = () => {
-    // remove the data from the redux after logging out
     dispatch(logoutRedux());
     toast("Logged Out Successfully");
   };
@@ -31,14 +25,7 @@ const Header = () => {
   const cartItemNumber = useSelector((state) => state.product.cartItem);
 
   return (
-    // px: padding from left and right (x-axis)
-    // mobile version it is 2, desktop it is 4 declared in header class
     <header className="fixed shadow-md w-full h-16 px-2 md:px-4 z-50 bg-gradient-to-l from-gray-700 via-gray-900 to-black">
-      {/* // <header className="fixed shadow-md w-full h-16 px-2 md:px-4 z-50 bg-gradient-to-r from-yellow-200 to-yellow-500"> */}
-      {/* // <header className="fixed shadow-md w-full h-16 px-2 md:px-4 z-50 bg-gradient-to-l from-red-950 via-amber-600 to-amber-100 drop-shadow-[2px_2px_2px_rgba(10, 100, 150, 1)]"> */}
-      {/* desktop version */}
-      {/* // <header className="bg-gradient-to-l from-blue-700 via-blue-800 to-gray-900"> */}
-      {/* centers the icon perfectly in the header bar vertically and justify-between spaces them to the extremes*/}
       <div className="flex items-center h-full justify-between">
         <Link to={""}>
           <div className="h-10">
@@ -74,7 +61,6 @@ const Header = () => {
                 <FaUserAlt className="h-full w-full p-2" />
               )}
             </div>
-            {/* || userData.email === process.env.REACT_APP_ADMIN2_EMAIL */}
             {showMenu && (
               <div className="absolute right-2 bg-slate-500 py-2 shadow drop-shadow-md flex flex-col min-w-[120px] text-center">
                 {userData.email === process.env.REACT_APP_ADMIN_EMAIL && (
@@ -123,8 +109,6 @@ const Header = () => {
           </div>
         </div>
       </div>
-
-      {/* mobile version */}
     </header>
   );
 };

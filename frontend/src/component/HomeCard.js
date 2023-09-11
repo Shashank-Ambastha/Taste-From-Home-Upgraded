@@ -9,7 +9,6 @@ const HomeCard = ({
   price_half,
   price_quarter,
   seller,
-  // quantity,
   loading,
   id,
 }) => {
@@ -32,7 +31,6 @@ const HomeCard = ({
             <h3 className="font-semibold text-slate-900 capitalise text-md overflow-hidden w-40 font-lg">
               {name}
             </h3>
-            {/* <p className="text-slate-400 font-medium">{catagory}</p> */}
             <p className="font-bold text-sm text-center text-stone-800 mt-2">
               <span className="text-red-500">₹</span>
               {price_full ? (
