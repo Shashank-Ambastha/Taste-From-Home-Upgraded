@@ -23,18 +23,14 @@ const CardFeature = ({
 }) => {
   const dispatch = useDispatch();
 
-  // const [price, setPrice] = useState(0);
   const [showMenu, setShowMenu] = useState(false);
 
   const handleShowMenu = () => {
     if (price_full && !price_half && !price_quarter) {
-      // setPrice(price_full);
       handleAddCartProduct(price_full, 1);
     } else if (price_half && !price_full && !price_quarter) {
-      // setPrice(price_half);
       handleAddCartProduct(price_half, 0.5);
     } else if (price_quarter && !price_full && !price_half) {
-      // setPrice(price_quarter);
       handleAddCartProduct(price_quarter, 0.25);
     } else setShowMenu((prev) => !prev);
   };
@@ -55,7 +51,6 @@ const CardFeature = ({
   };
 
   const productCartItem = useSelector((state) => state.product.cartItem);
-  // console.log("Target ID: ", JSON.stringify(id));
   const [ind, setInd] = useState(-1);
   useEffect(() => {
     setInd(-1);
@@ -63,13 +58,14 @@ const CardFeature = ({
       if (id === el._id) {
         setInd(i);
         console.log(ind);
-        // return i;
       }
+      return 0;
     });
-  }, [productCartItem, deleteCartItem]);
+  }, [productCartItem]);
+  // }, [productCartItem, deleteCartItem]);
 
   return (
-    <div className="w-full min-w-[200px] max-w-[200px] rounded bg-white hover:shadow-2xl drop-shadow-[2px_2px_2px_rgba(0,0,0,1)] px-4 py-5 hover:cursor-pointer flex flex-col">
+    <div className="w-full min-w-[196px] max-w-[198px] rounded bg-white hover:shadow-2xl drop-shadow-[2px_2px_2px_rgba(0,0,0,1)] px-4 py-5 hover:cursor-pointer flex flex-col">
       {image ? (
         <>
           <Link
@@ -114,7 +110,6 @@ const CardFeature = ({
                     <div
                       className="flex hover:bg-amber-400 border-indigo-700 border-b-2"
                       onClick={() => {
-                        // setPrice(price_full);
                         handleAddCartProduct(price_full, 1);
                       }}
                     >
@@ -127,7 +122,6 @@ const CardFeature = ({
                     <div
                       className="flex hover:bg-amber-400 border-indigo-700 border-b-2"
                       onClick={() => {
-                        // setPrice(price_half);
                         handleAddCartProduct(price_half, 0.5);
                       }}
                     >
@@ -140,7 +134,6 @@ const CardFeature = ({
                     <div
                       className="flex hover:bg-amber-400"
                       onClick={() => {
-                        // setPrice(price_quarter);
                         handleAddCartProduct(price_quarter, 0.25);
                       }}
                     >
@@ -183,7 +176,6 @@ const CardFeature = ({
                 <button
                   onClick={() => {
                     dispatch(deleteCartItem(id));
-                    // setPrice(0);
                     setInd(-1);
                   }}
                   className=" p-1 my-2 mt-2 ml-4 hover:rounded-full hover:bg-red-500 cursor-pointer"

@@ -14,7 +14,7 @@ const HomeCard = ({
   id,
 }) => {
   return (
-    <div className="bg-white shadow p-2 rounded min-w-[150px] hover:shadow-2xl drop-shadow-[2px_2px_2px_rgba(0,0,0,1)] ">
+    <div className="bg-white shadow p-2 rounded max-h-fit pt-5 min-w-[150px] hover:shadow-2xl drop-shadow-[2px_2px_2px_rgba(0,0,0,1)] ">
       {name ? (
         <>
           <Link

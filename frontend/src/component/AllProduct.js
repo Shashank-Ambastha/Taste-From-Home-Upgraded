@@ -30,7 +30,7 @@ const AllProduct = ({ heading }) => {
   };
 
   return (
-    <div className="my-5 w-screen">
+    <div className="my-5 w-screen scrollbar-thin">
       <h2 className="font-bold text-2xl text-amber-200 mb-4">{heading}</h2>
       <div className="flex gap-4 justify-center overflow-scroll scrollbar-none">
         {catagoryList[0] ? (
@@ -50,7 +50,7 @@ const AllProduct = ({ heading }) => {
           </div>
         )}
       </div>
-      <div className="flex flex-wrap justify-center gap-4 my-8">
+      <div className="flex flex-wrap justify-center gap-6 my-8 mx-5">
         {dataFilter[0]
           ? dataFilter.map((el) => {
               return (

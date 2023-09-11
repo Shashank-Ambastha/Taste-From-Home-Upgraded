@@ -15,9 +15,8 @@ const Menu = () => {
   const { filterby } = useParams();
   const productData = useSelector((state) => state.product.productList);
   const productDisplay = productData.filter((el) => el._id === filterby)[0];
-  console.log(productDisplay);
+  // console.log(productDisplay);
 
-  // const [price, setPrice] = useState(0);
   const [showMenu, setShowMenu] = useState(false);
 
   const handleShowMenu = (e) => {
@@ -26,21 +25,18 @@ const Menu = () => {
       !productDisplay.price_half &&
       !productDisplay.price_quarter
     ) {
-      // setPrice(productDisplay.price_full);
       handleAddCartProduct(productDisplay.price_full, 1);
     } else if (
       productDisplay.price_half &&
       !productDisplay.price_full &&
       !productDisplay.price_quarter
     ) {
-      // setPrice(productDisplay.price_half);
       handleAddCartProduct(productDisplay.price_half, 0.5);
     } else if (
       productDisplay.price_quarter &&
       !productDisplay.price_full &&
       !productDisplay.price_half
     ) {
-      // setPrice(productDisplay.price_quarter);
       handleAddCartProduct(productDisplay.price_quarter, 0.25);
     } else setShowMenu((prev) => !prev);
   };
@@ -63,23 +59,22 @@ const Menu = () => {
 
   const productCartItem = useSelector((state) => state.product.cartItem);
   const [ind, setInd] = useState(-1);
-  // console.log(productData);
 
-  // let ind = 0;
   useEffect(() => {
     setInd(-1);
     productCartItem.filter((el, i) => {
       if (productDisplay._id === el._id) {
         setInd(i);
-        console.log(ind, i);
-        // return i;
+        // console.log(ind, i);
       }
+      return 0;
     });
-  }, [productCartItem, productDisplay, deleteCartItem]);
+  }, [productCartItem, productDisplay]);
+  // }, [productCartItem, productDisplay, deleteCartItem]);
 
   return (
     <div className="p-2 md:p-4 overflow-hidden">
-      <div className="w-full max-w-[950px] m-auto md:flex bg-white">
+      <div className="w-full max-w-[950px] max-h-[350px] m-auto md:flex bg-white">
         <div className="max-w-sm overflow-hidden w-full p-5">
           <img
             src={productDisplay.image}
@@ -106,7 +101,7 @@ const Menu = () => {
               ) : null}
             </span>
           </p>
-          <p className="text-emerald-700 font-small italic text-xl text-right mr-16">
+          <p className="text-emerald-700 font-small italic text-xl text-right mr-4 md:mr-20">
             ~ by {productDisplay.seller}
           </p>
           <div className="flex gap-3">
@@ -122,7 +117,6 @@ const Menu = () => {
                       <div
                         className="flex hover:bg-amber-500 border-indigo-700 border-b"
                         onClick={() => {
-                          // setPrice(productDisplay.price_full);
                           handleAddCartProduct(productDisplay.price_full, 1);
                         }}
                       >
@@ -135,7 +129,6 @@ const Menu = () => {
                       <div
                         className="flex hover:bg-amber-500 border-indigo-700 border-b"
                         onClick={() => {
-                          // setPrice(productDisplay.price_half);
                           handleAddCartProduct(productDisplay.price_half, 0.5);
                         }}
                       >
@@ -148,7 +141,6 @@ const Menu = () => {
                       <div
                         className="flex hover:bg-amber-500"
                         onClick={() => {
-                          // setPrice(productDisplay.price_quarter);
                           handleAddCartProduct(
                             productDisplay.price_quarter,
                             0.25

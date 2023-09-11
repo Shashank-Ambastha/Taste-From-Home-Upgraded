@@ -5,6 +5,7 @@ import { Toaster } from "react-hot-toast";
 import { useEffect } from "react";
 import { setDataProduct } from "./redux/productSlice";
 import { useDispatch } from "react-redux";
+
 // import BGimg from ".//imgs/304658.jpg";
 
 function App() {
@@ -27,7 +28,9 @@ function App() {
       <div>
         <Header />
         {/* Original:{" "} */}
-        <main className="pt-16 bg-[url('https://wallpaperaccess.com/full/304658.jpg')] min-h-[calc(100vh)]">
+        <main className=" pt-16 bg-[url('https://wallpaperaccess.com/full/304658.jpg')] min-h-[calc(100vh)]">
+          {/* <main className=" pt-16 bg-[url('https://wallpaperaccess.com/full/304658.jpg')] min-h-[calc(100vh)]"> */}
+          {/* <RemoveScrollBar /> */}
           {/*
             1) https://wallpaperaccess.com/full/304735.jpg
             2)https://wallpaperaccess.com/full/304658.jpg

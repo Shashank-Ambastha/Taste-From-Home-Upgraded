@@ -11,7 +11,7 @@ import AllProduct from "../component/AllProduct";
 const Home = () => {
   const productData = useSelector((state) => state.product.productList);
   console.log(productData);
-  const homeProductCartList = productData.slice(0, 4);
+  const homeProductCartList = productData.slice(2, 6);
   const homeProductCartListLadduBarfi = productData.filter(
     (el) => el.catagory === "Laddu - Barfi",
     []
@@ -85,7 +85,7 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="">
+      <div className=" scrollbar-hide">
         <div className="flex w-full items-center">
           <h2 className="font-bold text-2xl text-amber-200 mb-4">
             Featured Sweets: Laddu - Barfi

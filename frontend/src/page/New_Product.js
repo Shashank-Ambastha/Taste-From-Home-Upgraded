@@ -141,6 +141,7 @@ const NewProduct = () => {
               <option value={"Sumitra"}>Sumitra</option>
               <option value={"Radha"}>Radha</option>
               <option value={"Baker's Delight"}>Baker's Delight</option>
+              <option value={"Karishma"}>Karishma</option>
             </select>
 
             <label htmlFor="catagory" className="my-1">
